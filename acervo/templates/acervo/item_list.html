@@ -1,0 +1,42 @@
+{% extends 'acervo/base.html' %}
+{% block title %}Itens{% endblock %}
+
+{% block content %}
+<h2 class="section-title reveal">Itens</h2>
+
+{% if itens %}
+<div class="cards-grid reveal">
+  {% for i in itens %}
+  <article class="card hover-lift">
+    <div class="card-head">
+      <span class="badge">
+        {% if i.isbn %}Livro{% elif i.edicao %}Revista{% else %}Mídia Digital{% endif %}
+      </span>
+      <span class="status {% if i.disponivel %}ok{% else %}warn{% endif %}">
+        {% if i.disponivel %}Disponível{% else %}Indisponível{% endif %}
+      </span>
+    </div>
+
+    <h3 class="card-title">{{ i.titulo }}</h3>
+    <p class="muted">Código: {{ i.codigo }} • Ano: {{ i.ano }}</p>
+
+    {% if i.autor %}<p>Autor: <strong>{{ i.autor }}</strong></p>{% endif %}
+    {% if i.isbn %}<p>ISBN: <strong>{{ i.isbn }}</strong></p>{% endif %}
+    {% if i.edicao %}<p>Edição: <strong>{{ i.edicao }}</strong></p>{% endif %}
+
+    <div class="card-actions">
+      {% if i.disponivel %}
+      <a href="{% url 'emprestar' %}" class="btn btn-small">Emprestar</a>
+      {% else %}
+      <a class="btn btn-small btn-disabled">Indisponível</a>
+      {% endif %}
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% else %}
+<p class="muted">Nenhum item cadastrado.</p>
+{% endif %}
+
+<a href="{% url 'home' %}" class="btn btn-ghost mt-lg">Voltar</a>
+{% endblock %}

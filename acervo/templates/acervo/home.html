@@ -1,0 +1,23 @@
+{% extends 'acervo/base.html' %}
+{% block title %}Biblioteca — Início{% endblock %}
+
+{% block content %}
+
+<section class="hero reveal">
+  <h1>Bem-vindo(a) à Biblioteca</h1>
+  <p>Gerencie itens, empréstimos e devoluções com praticidade.</p>
+  <div class="actions">
+    <a href="{% url 'itens' %}" class="btn btn-primary">Ver itens</a>
+    <a href="{% url 'emprestimos' %}" class="btn btn-outline">Ver empréstimos</a>
+    <a href="{% url 'emprestar' %}" class="btn btn-ghost">Novo empréstimo</a>
+  </div>
+</section>
+
+<section class="grid-3 reveal">
+  <article class="card">
+    <h3>Fluxo simples</h3>
+    <p>Cadastre itens, empreste, devolva e acompanhe prazos e multas.</p>
+  </article>
+</section>
+
+{% endblock %}
