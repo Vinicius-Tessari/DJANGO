@@ -1,0 +1,17 @@
+{% extends 'acervo/base.html' %}
+{% block title %}Novo Empréstimo{% endblock %}
+
+{% block content %}
+<h2 class="section-title reveal">Novo Empréstimo</h2>
+
+<form method="post" class="form card reveal">
+  {% csrf_token %}
+  <div class="form-grid">
+    {{ form.as_p }}
+  </div>
+  <div class="actions">
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="{% url 'home' %}" class="btn btn-ghost">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

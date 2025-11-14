@@ -1,0 +1,41 @@
+{% extends 'acervo/base.html' %}
+{% block title %}Empréstimos{% endblock %}
+
+{% block content %}
+<h2 class="section-title reveal">Empréstimos</h2>
+
+{% if emprestimos %}
+<div class="list-cards reveal">
+  {% for e in emprestimos %}
+  <article class="card hover-lift">
+    <div class="card-head">
+      <span class="badge">#{{ e.pk }}</span>
+      <span class="status {% if e.em_aberto %}ok{% else %}muted{% endif %}">
+        {% if e.em_aberto %}Em aberto{% else %}Devolvido{% endif %}
+      </span>
+    </div>
+
+    <h3 class="card-title">{{ e.item }}</h3>
+    <p class="muted">Usuário: {{ e.usuario }}</p>
+    <p>Prazo: <strong>{{ e.prazo }}</strong></p>
+
+    {% if e.em_aberto %}
+      <p>Multa agora: <strong>R$ {{ e.calcular_multa }}</strong></p>
+      <div class="card-actions">
+        <a href="{% url 'devolver' e.pk %}" class="btn btn-small btn-primary">Devolver</a>
+      </div>
+    {% else %}
+      <p>Devolvido em: <strong>{{ e.devolvido_em }}</strong></p>
+    {% endif %}
+  </article>
+  {% endfor %}
+</div>
+{% else %}
+<p class="muted">Sem empréstimos.</p>
+{% endif %}
+
+<div class="actions mt-lg">
+  <a href="{% url 'emprestar' %}" class="btn btn-outline">Novo Empréstimo</a>
+  <a href="{% url 'home' %}" class="btn btn-ghost">Voltar</a>
+</div>
+{% endblock %}
